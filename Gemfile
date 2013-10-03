@@ -47,6 +47,8 @@ group :test do
   # gem 'spring'
 end
 
+gem "ngmin-rails", "~> 0.4.0" # for minifying angularjs
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
