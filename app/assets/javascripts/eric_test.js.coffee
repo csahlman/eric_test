@@ -14,6 +14,7 @@ angular.module('eric_test').config ($routeProvider) ->
   $routeProvider.when('/',
     controller: 'MapsCtrl'
     templateUrl: '/assets/maps/index.html'
+    reloadOnSearch: false
   ).otherwise(
     redirectTo: '/'
   )

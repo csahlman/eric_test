@@ -3,7 +3,7 @@ angular.module('eric_test').directive 'map', ->
   link: (scope, element, attrs) ->
     scope.$watch 'currentUser', (user) ->
       map = new L.Map(element[0]).setView([0, 0], 3)
-      connections = []
+      scope.connections = []
 
       L.tileLayer('http://{s}.tile.cloudmade.com/664c0e7eb24b4912b034fe4e2e0c2bb3/997/256/{z}/{x}/{y}.png', {
           attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
@@ -13,20 +13,20 @@ angular.module('eric_test').directive 'map', ->
       L.marker([user.loc.lat, user.loc.lng]).addTo(map)
 
       scope.drawMap = (filter) ->
-        scope.clearMap(connections) unless connections.length == 0
+        scope.clearMap(scope.connections)
         angular.forEach user.connections, (connection) ->
-          unless filter && connection.provider != filter
+          unless filter? && connection.provider != filter
             connection.marker = L.marker([connection.loc.lat, connection.loc.lng])
-            connection.marker.bindPopup("<b>#{connection.provider}</b>").openPopup()
-            connections.push connection.marker
+            connection.marker.bindPopup("<b>#{connection.provider}</b><br><i>#{connection.loc.lat} #{connection.loc.lng}</i>").openPopup()
+            scope.connections.push connection.marker
             connection.marker.addTo(map)
+
         
 
       scope.$watch 'filter', (newFilter) ->
         scope.drawMap(newFilter)
       
       scope.clearMap = (connections) ->
-        console.log connections
-        angular.forEach connections, (connection) ->
-          console.log connection
-          map.removeLayer connection
+        angular.forEach connections, (marker) ->
+          map.removeLayer marker
+        scope.connections = []
