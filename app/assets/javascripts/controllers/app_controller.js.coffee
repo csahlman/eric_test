@@ -15,6 +15,7 @@ angular.module('eric_test').controller 'AppCtrl', ($scope, $http) ->
   $scope.loadData()
 
 
+# method to find different providers given from json file
   $scope.uniqueProviders = (connections) ->
     unique = {}
     angular.forEach connections, (value) ->
@@ -22,6 +23,3 @@ angular.module('eric_test').controller 'AppCtrl', ($scope, $http) ->
         $scope.providers.push(value.provider)
         unique[value.provider] = true
     
-
-  $scope.onlyUnique = (value, index, self) ->
-    self.indexOf(value) == index

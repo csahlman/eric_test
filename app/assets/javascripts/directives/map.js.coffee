@@ -9,7 +9,7 @@ angular.module('eric_test').directive 'map', ->
     )
 
 
-    scope.$watch 'currentUser', (user) ->
+    scope.$watch 'currentUser', (user) -> # wait for currentUser to fully load data
       map = new L.Map(element[0]).setView([user.loc.lat, user.loc.lng], 5)
       scope.connections = []
 
@@ -21,7 +21,7 @@ angular.module('eric_test').directive 'map', ->
       L.marker([user.loc.lat, user.loc.lng], { icon: customIcon }).addTo(map)
 
       scope.drawMap = (filter) ->
-        scope.clearMap(scope.connections)
+        scope.clearMap(scope.connections) # clear current map
         angular.forEach user.connections, (connection) ->
           unless filter? && connection.provider != filter
             connection.marker = L.marker([connection.loc.lat, connection.loc.lng])
