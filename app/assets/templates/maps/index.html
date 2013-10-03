@@ -1,1 +1,12 @@
+<h1>You have {{currentUser.connections.length}} connections in {{providers.length}} networks.</h1>
+
+<h3 ng-show="!filter">Currently showing all connections</h3>
+<h3 ng-show="filter">Currently showing connections for {{filter}}</h3>
+
+<ul>
+  <li ng-repeat="provider in providers">
+    <a ng-click="filterBy(provider)">Filter by {{provider}}</a>
+  </li>
+</ul>
+
 <div id="map" map lat="currentUserLat" lng="currentUserLng" connections="connections" zoom="13"></div>
